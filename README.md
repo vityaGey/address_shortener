@@ -1,6 +1,3 @@
-[![Build Status](https://travis-ci.org/pnpnpn/street-address.svg?branch=master)](https://travis-ci.org/pnpnpn/street-address)
-[![PyPI version](https://badge.fury.io/py/street-address.svg)](https://badge.fury.io/py/street-address)
-
 street-address
 ================
 
@@ -15,11 +12,8 @@ From source code:
 
     python setup.py install
 
-From pypi:
 
-    pip install street-address
-
-Usage
+Использвание
 -----
 
     from streetaddress import StreetAddressFormatter, StreetAddressParser
