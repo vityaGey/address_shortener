@@ -1,13 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""
-    streetaddress.streetaddress
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-    :copyright: (c) 2012 by PN.
-    :license: MIT, see LICENSE for more details.
-"""
 
 import re
 import six
@@ -38,11 +31,7 @@ class StreetAddressParser():
         addr_str = addr_str.strip()
         res = {
             'house': None,
-            'street_name': None,
-            'street_type': None,
             'street_full': None,
-            'suite_num': None,
-            'suite_type': None,
             'other': None,
         }
 
@@ -128,54 +117,13 @@ def get_abbrev_suffix_dict():
     return abbrevs.USA_ABBREVS
 
 
-def get_text2num_dict():
-    return {
-        'zero': 0,
-        'one': 1,
-        'two': 2,
-        'three': 3,
-        'four': 4,
-        'five': 5,
-        'six': 6,
-        'seven': 7,
-        'eight': 8,
-        'nine': 9,
-        'ten': 10,
-        'eleven': 11,
-        'twelve': 12,
-        'thirteen': 13,
-        'fourteen': 14,
-        'fifteen': 15,
-        'sixteen': 16,
-        'seventeen': 17,
-        'eighteen': 18,
-        'nineteen': 19,
-        'twenty': 20,
-        'thirty': 30,
-        'forty': 40,
-        'fifty': 50,
-        'sixty': 60,
-        'seventy': 70,
-        'eighty': 80,
-        'ninety': 90,
-    }
+
 
 
 ########################################################################
 # StreetAddressFormatter
 ########################################################################
-class StreetAddressFormatter():
-    def __init__(self):
-        # abbreviate west, east, north, south?
-        self.abbrev_suffix_map = get_abbrev_suffix_dict()
-        self.street_type_set = set(self.abbrev_suffix_map.keys()) | set(
-            self.abbrev_suffix_map.values())
-        self.abbrev_direction_map = {
-            'east': 'E',
-            'west': 'W',
-            'north': 'N',
-            'south': 'S',
-        }
+
 
         for k, v in self.abbrev_suffix_map.items():
             self.abbrev_suffix_map[k] = v.title()
@@ -183,17 +131,7 @@ class StreetAddressFormatter():
         TH_or_str = '|' . join(self.street_type_set)
         self.re_TH = re.compile(r'\b(\d+)\s+(%s)\.?$' % TH_or_str, flags=re.I | re.U)
 
-    def st_nd_th_convert(self, num_str):
-        if len(num_str) >= 2 and (num_str[-2:] == '11' or num_str[-2:] == '12' or num_str[-2:] == '13'):
-            return num_str + 'th'
-        elif num_str[-1] == '1':
-            return num_str + 'st'
-        elif num_str[-1] == '2':
-            return num_str + 'nd'
-        elif num_str[-1] == '3':
-            return num_str + 'rd'
-        else:
-            return num_str + 'th'
+
 
     def append_TH_to_street(self, addr):
         # street,avenue needs to be the last word
